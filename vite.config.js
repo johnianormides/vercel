@@ -22,12 +22,20 @@ export default defineConfig({
 		outDir: "dist",
 		assetsDir: "assets",
 		sourcemap: true,
+		emptyOutDir: true
 	},
-	// server: {
-	// 	port: 3000,
-	// 	host: true,
-	// 	strictPort: true,
-	// },
+	server: {
+		port: 3000,
+		host: true,
+		strictPort: true,
+		proxy: {
+			'/api': {
+				target: process.env.VITE_API_URL || 'http://localhost:5000',
+				changeOrigin: true,
+				secure: false
+			}
+		}
+	},
 	define: {
 		VUE_PROD_HYDRATION_MISMATCH_DETAILS: "false",
 		VUE_PROD_DEVTOOLS: "false",
